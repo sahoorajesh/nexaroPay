@@ -1,0 +1,43 @@
+1. To use Postgres locally, Download PostgreSQL installer for Windows and then install it.
+Installed :- postgresql-18.3-3-windows-x64
+Username:- postgres
+Password:- postgres
+Port:- 5432
+
+2. Add the bin location of this installed Postgres in environment variables
+Now you can access the psql server from command line itself. If u want u can also download pgadmin or dbeaver
+to query and view tables
+
+To access from CLI:-
+a. psql -U postgres
+b. Enter password
+c. Create new database:- CREATE DATABASE nexaroPayDB
+d. To change current database :- \c nexaroPayDB
+e. Now query using normal SQL
+
+3. Install WSL for windows in order to install and use redis-cli.
+a. Install wsl using :- wsl --install -d Ubuntu
+b. Once installation is complete, ubuntu terminal will start and then you can use the terminal as normal linux.
+c. Upgrade Ubuntu:- sudo apt update && sudo apt upgrade -y
+d. Install JAVA 21:- sudo apt install -y openjdk-21-jdk
+e. Install basic backend requirements:- sudo apt install -y build-essential curl wget git unzip
+f. Set default wsl to Ubuntu:-  wsl --set-default Ubuntu
+g. Install redis-server :- sudo apt-get install redis-server
+h. Connect to redis-cli:- redis-cli
+Redis Server:Port :- 127.0.0.1:6379
+i. Check the Keys using:- keys *
+
+
+4. Install Apache Kafka server for windows to start and use kafka.
+a. I am Using Version:- kafka_2.13-4.0.2
+
+Do the following steps if you are running kafka for the first time:-
+i) Run this to generate $KAFKA_CLUSTER_ID :-  .\bin\windows\kafka-storage.bat random-uuid
+ii) Format Log Directories :- .\bin\kafka-storage.bat format --standalone -t $KAFKA_CLUSTER_ID -c .\config\server.properties
+
+b. Run kafka server using :- .\bin\windows\kafka-server-start.bat .\config\server.properties
+c. To see what is being pushed in kafka run this command in new tab:-
+.\windows\kafka-console-consumer.bat --topic USER-CREATED --bootstrap-server 0.0.0.0:9092,0.0.0.0:9093 --from-beginning
+
+The name of the topic is defined in application.properties
+
