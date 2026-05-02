@@ -50,7 +50,7 @@ public class UserService {
                 .userId(user.getId())
                 .build();
         Future<SendResult<String,Object>> future = kafkaTemplate
-                .send(userCreatedTopic, userCreatedPayload.getUserEmail(),userCreatedPayload.toString());
+                .send(userCreatedTopic, userCreatedPayload.getUserEmail(),userCreatedPayload);
 
         logger.info("Sent message to Kafka topic: {}", future.get());
         String key = "user:" + user.getId();
