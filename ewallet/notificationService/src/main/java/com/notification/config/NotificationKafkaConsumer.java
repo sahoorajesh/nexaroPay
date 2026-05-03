@@ -41,7 +41,7 @@ public class NotificationKafkaConsumer {
         WalletUpdatedPayload walletUpdatedPayload = mapper.readValue(payload.value().toString(), WalletUpdatedPayload.class);
         LOGGER.info("Received Wallet Updated payload: {}", walletUpdatedPayload);
         SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setFrom("rajsahoo7350@gmail.com");
+        mailMessage.setFrom("nexaroPay.ewallet@gmail.com");
         mailMessage.setTo(walletUpdatedPayload.getUserEmail());
         mailMessage.setSubject("Wallet Updated");
         mailMessage.setText("Your Wallet was updated recently. Your new Balance is :- " + walletUpdatedPayload.getNewBalance());
