@@ -1,3 +1,5 @@
+NexaroPay — Simplifying Payments, Amplifying Trust
+
 1. To use Postgres locally, Download PostgreSQL installer for Windows and then install it.
 Installed :- postgresql-18.3-3-windows-x64
 Username:- postgres
@@ -40,4 +42,33 @@ c. To see what is being pushed in kafka run this command in new tab:-
 .\windows\kafka-console-consumer.bat --topic USER-REGISTERED --bootstrap-server 0.0.0.0:9092,0.0.0.0:9093 --from-beginning
 
 The name of the topic is defined in application.properties
+
+5. To configure smtp with gmail, you have to generate apppassword for that email and save
+it as environment variable in your local. Then only it would be able to send those mails
+
+The apppassword is generally a 16 character password, which u need to save as environment
+variable without spaces
+
+You can use yopmail.com to receive fake mails with any mail id
+
+
+6. Currently available apis:-
+
+a. Create user [POST] :- http://localhost:8091/user-service/user
+{
+    "name":"User1 test1",
+    "email":"user1@yopmail.com",
+    "phone":"2101069712",
+    "kycNumber":"6014133-33145-55612"
+}
+
+b. Transfer money [POST] :- http://localhost:8094/transaction-service/transfer
+{
+    "toUserId":35,
+    "fromUserId":36,
+    "amount":30.0,
+    "comment":"Test Payment"
+}
+
+c. Check Status of Transfer [GET]:- http://localhost:8094/transaction-service/status/d9ab36e4-7089-404b-9df9-d58255752d00
 
