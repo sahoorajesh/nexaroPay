@@ -1,6 +1,7 @@
 package com.notification.config;
 
 import com.util.kafka.UserCreatedPayload;
+import com.util.kafka.WalletUpdatedPayload;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,13 +27,26 @@ public class NotificationKafkaConsumer {
         UserCreatedPayload  userCreatedPayload = mapper.readValue(payload.value().toString(), UserCreatedPayload.class);
         LOGGER.info("Received user created payload: {}", userCreatedPayload);
         SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setFrom("rajsahoo7350@gmail.com");
+        mailMessage.setFrom("nexaroPay.ewallet@gmail.com");
         mailMessage.setTo(userCreatedPayload.getUserEmail());
         mailMessage.setSubject("Welcome " + userCreatedPayload.getUserName());
         mailMessage.setText("We are delighted to have you onboard");
         mailMessage.setCc("admin.nexaroPay@yopmail.com");
         mailSender.send(mailMessage);
         LOGGER.info("Mail Sent Successfully");
+    }
 
+    @KafkaListener(topics = "${wallet.updated.topic}", groupId = "email")
+    public void consumeWalletUpdatedTopic(ConsumerRecord<?,?> payload) {
+        WalletUpdatedPayload walletUpdatedPayload = mapper.readValue(payload.value().toString(), WalletUpdatedPayload.class);
+        LOGGER.info("Received Wallet Updated payload: {}", walletUpdatedPayload);
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setFrom("rajsahoo7350@gmail.com");
+        mailMessage.setTo(walletUpdatedPayload.getUserEmail());
+        mailMessage.setSubject("Wallet Updated");
+        mailMessage.setText("Your Wallet was updated recently. Your new Balance is :- " + walletUpdatedPayload.getNewBalance());
+        mailMessage.setCc("admin.nexaroPay@yopmail.com");
+        mailSender.send(mailMessage);
+        LOGGER.info("Wallet Updated Mail Sent Successfully");
     }
 }

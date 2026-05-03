@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.KafkaListener;
 import tools.jackson.databind.ObjectMapper;
 
+import java.util.concurrent.ExecutionException;
+
 @Configuration
 public class WalletKafkaConsumerConfig {
     private static final Logger logger = LoggerFactory.getLogger(WalletKafkaConsumerConfig.class);
@@ -20,7 +22,7 @@ public class WalletKafkaConsumerConfig {
     private WalletService walletService;
 
     @KafkaListener(topics = "${user.created.topic}", groupId = "wallet")
-    public void consumeUserCreatedTopic(ConsumerRecord<?, ?> record) {
+    public void consumeUserCreatedTopic(ConsumerRecord<?, ?> record) throws ExecutionException, InterruptedException {
         logger.info("Received from Kafka: {}", record);
         UserCreatedPayload userCreatedPayload = objectMapper.readValue(record.value().toString(), UserCreatedPayload.class);
         walletService.createWallet(userCreatedPayload);
