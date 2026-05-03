@@ -9,4 +9,15 @@
     <artifactId>notificationService</artifactId>
     <name>Archetype - notificationService</name>
     <url>http://maven.apache.org</url>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.nexaroPay</groupId>
+            <artifactId>CommonUtils</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>
