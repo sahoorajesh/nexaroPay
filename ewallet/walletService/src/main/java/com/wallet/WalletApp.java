@@ -3,6 +3,8 @@ package com.wallet;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication(scanBasePackages = {"com.wallet"}, scanBasePackageClasses = {com.util.kafka.KafkaProducerConfig.class})
 public class WalletApp {
@@ -10,4 +12,10 @@ public class WalletApp {
         SpringApplication.run(WalletApp.class, args);
 
     }
+
+    @Bean
+    public RestTemplate  restTemplate() {
+        return new RestTemplate();
+    }
+
 }

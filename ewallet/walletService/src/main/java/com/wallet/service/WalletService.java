@@ -4,6 +4,7 @@ import com.util.kafka.TxnCompletedPayload;
 import com.util.kafka.TxnInitPayload;
 import com.util.kafka.UserCreatedPayload;
 import com.util.kafka.WalletUpdatedPayload;
+import com.wallet.dto.PaymentStatusFromGatewayDTO;
 import com.wallet.dto.WalletInfoDTO;
 import com.wallet.entity.Wallet;
 import com.wallet.repository.WalletRepository;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -36,6 +38,9 @@ public class WalletService {
 
     @Autowired
     private KafkaTemplate<String, Object> kafkaTemplate;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Transactional
     public void createWallet(UserCreatedPayload userCreatedPayload) throws ExecutionException, InterruptedException {
@@ -122,6 +127,22 @@ public class WalletService {
                 .send(txnCompletedTopic, txnInitPayload.getFromUserId().toString(),txnCompletedPayload);
 
         LOGGER.info("Sent message to Transaction Completed topic: {}", txnCompletedFuture.get());
+
+    }
+
+    public String processPgTxnId(String pgTxnId){
+
+        PaymentStatusFromGatewayDTO paymentStatusFromGatewayDTO = restTemplate.getForObject("http://localhost:9090/pg-service/payment-status/" + pgTxnId,
+                PaymentStatusFromGatewayDTO.class);
+        if(paymentStatusFromGatewayDTO.getStatus().equalsIgnoreCase("SUCCESS")){
+            Wallet wallet = walletRepository.findByUserId(paymentStatusFromGatewayDTO.getUserId());
+            wallet.setBalance(wallet.getBalance() + paymentStatusFromGatewayDTO.getAmount());
+            walletRepository.save(wallet);
+            return "Wallet Updated Successfully";
+        }
+        else {
+            return "Transaction Failed";
+        }
 
     }
 }
