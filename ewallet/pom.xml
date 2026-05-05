@@ -27,7 +27,8 @@
 		<module>transactionService</module>
 		<module>notificationService</module>
 		<module>CommonUtils</module>
-	</modules>
+        <module>PaymentGateway</module>
+    </modules>
 	<scm>
 		<connection/>
 		<developerConnection/>
