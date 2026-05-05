@@ -33,7 +33,7 @@ i. Check the Keys using:- keys *
 4. Install Apache Kafka server for windows to start and use kafka.
 a. I am Using Version:- kafka_2.13-4.0.2
 
-Do the following steps if you are running kafka for the first time:-
+Do the following steps if you are running kafka for the first time or if u have deleted the logs folder:-
 i) Run this to generate $KAFKA_CLUSTER_ID :-  .\bin\windows\kafka-storage.bat random-uuid
 ii) Format Log Directories :- .\bin\kafka-storage.bat format --standalone -t $KAFKA_CLUSTER_ID -c .\config\server.properties
 
