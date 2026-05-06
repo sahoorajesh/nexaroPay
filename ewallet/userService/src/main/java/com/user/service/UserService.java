@@ -1,5 +1,7 @@
 package com.user.service;
 
+import com.user.dto.LoginRequestDTO;
+import com.user.dto.LoginResponseDTO;
 import com.user.dto.UserDTO;
 import com.user.entity.User;
 import com.user.repository.UserRepository;
@@ -40,14 +42,48 @@ public class UserService {
         UserDTO userDTO = redisTemplate.opsForValue().get(key);
         if(userDTO == null){
             User user = userRepository.findById(id).get();
-            userDTO = new UserDTO();
-            userDTO.setEmail(user.getEmail());
-            userDTO.setName(user.getName());
-            userDTO.setPhone(user.getPhone());
-            userDTO.setKycNumber(user.getKycNumber());
+            userDTO = toUserDTO(user);
         }
         return userDTO;
     }
+
+    public LoginResponseDTO login(LoginRequestDTO request) {
+        String email = request == null ? null : request.getEmail();
+        String kyc = request == null ? null : request.getKyc();
+
+        if (isBlank(email) || isBlank(kyc)) {
+            return LoginResponseDTO.builder()
+                    .success(false)
+                    .message("Both email and kyc are required.")
+                    .build();
+        }
+
+        return userRepository.findByEmailAndKycNumber(email.trim(), kyc.trim())
+                .map(user -> LoginResponseDTO.builder()
+                        .success(true)
+                        .message("Login successful.")
+                        .userId(user.getId())
+                        .user(toUserDTO(user))
+                        .build())
+                .orElseGet(() -> LoginResponseDTO.builder()
+                        .success(false)
+                        .message("Invalid email or kyc.")
+                        .build());
+    }
+
+    private static boolean isBlank(String s) {
+        return s == null || s.trim().isEmpty();
+    }
+
+    private static UserDTO toUserDTO(User user) {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setEmail(user.getEmail());
+        userDTO.setName(user.getName());
+        userDTO.setPhone(user.getPhone());
+        userDTO.setKycNumber(user.getKycNumber());
+        return userDTO;
+    }
+
     @Transactional
     public long createUser(UserDTO userDTO) throws ExecutionException, InterruptedException {
 

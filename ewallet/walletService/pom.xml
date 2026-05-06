@@ -9,4 +9,10 @@
     <artifactId>walletService</artifactId>
     <name>Archetype - walletService</name>
     <url>http://maven.apache.org</url>
+    <dependencies>
+        <dependency>
+            <groupId>com.nexaroPay</groupId>
+            <artifactId>CommonUtils</artifactId>
+        </dependency>
+    </dependencies>
 </project>
