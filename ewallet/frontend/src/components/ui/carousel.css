@@ -1,0 +1,76 @@
+.carousel {
+  position: relative;
+  margin-top: 10px;
+}
+
+.carousel__rail {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 10px;
+}
+
+.carousel__rail::-webkit-scrollbar {
+  height: 10px;
+}
+
+.carousel__rail::-webkit-scrollbar-track {
+  background: rgba(148, 163, 184, 0.06);
+  border-radius: 999px;
+}
+
+.carousel__rail::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.18);
+  border-radius: 999px;
+}
+
+.carousel__slide {
+  scroll-snap-align: center;
+  padding: 6px;
+}
+
+.carousel__dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: rgba(148, 163, 184, 0.10);
+  cursor: pointer;
+}
+
+.dot.isActive {
+  background: rgba(16, 185, 129, 0.30);
+  border-color: rgba(16, 185, 129, 0.40);
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.10);
+}
+
+.carousel__fade {
+  position: absolute;
+  top: 0;
+  bottom: 26px;
+  width: 38px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.carousel__fade--l {
+  left: 0;
+  background: linear-gradient(90deg, var(--bg), rgba(0, 0, 0, 0));
+}
+
+.carousel__fade--r {
+  right: 0;
+  background: linear-gradient(270deg, var(--bg), rgba(0, 0, 0, 0));
+}
+

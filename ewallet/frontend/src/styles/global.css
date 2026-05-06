@@ -1,0 +1,130 @@
+:root {
+  color-scheme: light;
+
+  /* Light theme (default) */
+  --bg: #f6f8fc;
+  --text: rgba(15, 23, 42, 0.96);
+  --muted: rgba(51, 65, 85, 0.86);
+  --subtle: rgba(100, 116, 139, 0.78);
+
+  --surface: rgba(255, 255, 255, 0.76);
+  --surface2: rgba(255, 255, 255, 0.92);
+  --border: rgba(15, 23, 42, 0.10);
+  --shadow: 0 16px 40px rgba(2, 6, 23, 0.10);
+  --shadowStrong: 0 22px 52px rgba(2, 6, 23, 0.14);
+
+  --btnBg: rgba(15, 23, 42, 0.06);
+  --btnBgHover: rgba(15, 23, 42, 0.10);
+  --btnBorder: rgba(15, 23, 42, 0.12);
+
+  --toastBg: rgba(255, 255, 255, 0.88);
+  --toastText: rgba(15, 23, 42, 0.92);
+  --toastMuted: rgba(51, 65, 85, 0.86);
+
+  --bgImage: url("/bg-fintech-light.svg");
+}
+
+/* Dark theme (optional via toggle) */
+html[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #0d1730;
+  --text: rgba(226, 232, 240, 0.96);
+  --muted: rgba(148, 163, 184, 0.88);
+  --subtle: rgba(148, 163, 184, 0.76);
+
+  --surface: rgba(2, 6, 23, 0.24);
+  --surface2: rgba(2, 6, 23, 0.36);
+  --border: rgba(148, 163, 184, 0.14);
+  --shadow: 0 16px 40px rgba(0, 0, 0, 0.20);
+  --shadowStrong: 0 22px 52px rgba(0, 0, 0, 0.28);
+
+  --btnBg: rgba(148, 163, 184, 0.07);
+  --btnBgHover: rgba(148, 163, 184, 0.12);
+  --btnBorder: rgba(148, 163, 184, 0.14);
+
+  --toastBg: rgba(2, 6, 23, 0.72);
+  --toastText: rgba(226, 232, 240, 0.96);
+  --toastMuted: rgba(148, 163, 184, 0.92);
+
+  --bgImage: url("/bg-fintech.svg");
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans",
+    sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+a {
+  color: inherit;
+}
+
+.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.muted {
+  color: rgba(148, 163, 184, 0.85);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 8px;
+  border: 1px solid var(--btnBorder);
+  background: var(--btnBg);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 13px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.btn:hover {
+  background: var(--btnBgHover);
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn--primary {
+  border-color: rgba(16, 185, 129, 0.26);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.20), rgba(56, 189, 248, 0.12));
+}
+
+.btn--primary:hover {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.26), rgba(56, 189, 248, 0.18));
+}
+
+.btn--ghost {
+  background: transparent;
+  border-color: rgba(148, 163, 184, 0.14);
+}
+
+.iconBtn {
+  width: 36px;
+  padding: 0;
+}
+
+.iconBtn svg {
+  width: 18px;
+  height: 18px;
+}

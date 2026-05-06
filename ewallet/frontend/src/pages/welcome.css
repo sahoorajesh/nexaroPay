@@ -1,0 +1,103 @@
+.welcome {
+  padding: 22px 0 10px;
+  display: grid;
+  place-items: center;
+}
+
+.welcomeCard {
+  width: min(720px, 100%);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface2);
+  box-shadow: var(--shadowStrong);
+  padding: 16px;
+  animation: riseIn 420ms ease both;
+}
+
+.welcomeCard__top {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 8px 6px 14px;
+}
+
+.welcomeCard__logo {
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.welcomeCard__title {
+  font-weight: 900;
+  letter-spacing: 0;
+  font-size: 20px;
+  margin-bottom: 2px;
+}
+
+.welcomeCard__sub {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.welcomeGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 6px;
+}
+
+.infoRow {
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 12px;
+}
+
+.infoRow__k {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.infoRow__v {
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0;
+  color: var(--text);
+  word-break: break-word;
+}
+
+.welcomeActions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 14px 6px 6px;
+}
+
+@media (max-width: 740px) {
+  .welcomeGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.emptyState {
+  margin-top: 16px;
+  padding: 14px;
+  border-radius: 12px;
+  text-align: center;
+  border: 1px dashed var(--border);
+}

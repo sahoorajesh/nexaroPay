@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" fill="none" role="img" aria-label="Digital wallet illustration">
+  <defs>
+    <linearGradient id="g1" x1="220" y1="170" x2="980" y2="740" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#10B981" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#38BDF8" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="240" y1="240" x2="760" y2="760" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B1220"/>
+      <stop offset="1" stop-color="#020617"/>
+    </linearGradient>
+    <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <!-- Background blobs -->
+  <path d="M196 268C252 152 421 126 532 156C679 196 780 156 892 186C1016 220 1065 354 1036 468C1003 604 842 638 710 682C544 736 322 730 228 612C153 518 132 400 196 268Z" fill="url(#g1)" opacity="0.12"/>
+  <path d="M310 710C338 642 417 608 491 608C606 608 704 548 806 574C903 598 945 682 922 754C894 844 770 842 670 858C545 878 396 874 338 808C302 768 290 748 310 710Z" fill="#94A3B8" opacity="0.08"/>
+
+  <!-- Phone -->
+  <g filter="url(#softShadow)">
+    <rect x="420" y="150" width="360" height="640" rx="44" fill="url(#g2)" stroke="rgba(148,163,184,0.18)" stroke-width="2"/>
+    <rect x="456" y="208" width="288" height="520" rx="28" fill="rgba(148,163,184,0.06)" stroke="rgba(148,163,184,0.12)"/>
+    <rect x="540" y="176" width="120" height="10" rx="5" fill="rgba(148,163,184,0.35)"/>
+    <circle cx="690" cy="181" r="6" fill="rgba(148,163,184,0.25)"/>
+  </g>
+
+  <!-- UI cards -->
+  <g>
+    <rect x="486" y="248" width="228" height="110" rx="18" fill="rgba(2,6,23,0.72)" stroke="rgba(148,163,184,0.14)"/>
+    <rect x="504" y="270" width="94" height="10" rx="5" fill="rgba(226,232,240,0.92)"/>
+    <rect x="504" y="292" width="158" height="10" rx="5" fill="rgba(148,163,184,0.68)"/>
+    <rect x="504" y="322" width="96" height="18" rx="9" fill="rgba(16,185,129,0.18)" stroke="rgba(16,185,129,0.28)"/>
+  </g>
+
+  <g>
+    <rect x="486" y="378" width="228" height="120" rx="18" fill="rgba(2,6,23,0.72)" stroke="rgba(148,163,184,0.14)"/>
+    <rect x="504" y="400" width="138" height="10" rx="5" fill="rgba(226,232,240,0.9)"/>
+    <rect x="504" y="424" width="182" height="10" rx="5" fill="rgba(148,163,184,0.65)"/>
+    <rect x="504" y="448" width="170" height="10" rx="5" fill="rgba(148,163,184,0.55)"/>
+    <circle cx="680" cy="450" r="18" fill="rgba(56,189,248,0.16)" stroke="rgba(56,189,248,0.30)"/>
+  </g>
+
+  <g>
+    <rect x="486" y="518" width="228" height="190" rx="18" fill="rgba(2,6,23,0.72)" stroke="rgba(148,163,184,0.14)"/>
+    <rect x="504" y="544" width="120" height="10" rx="5" fill="rgba(226,232,240,0.9)"/>
+    <rect x="504" y="574" width="196" height="12" rx="6" fill="rgba(148,163,184,0.55)"/>
+    <rect x="504" y="602" width="176" height="12" rx="6" fill="rgba(148,163,184,0.45)"/>
+    <rect x="504" y="630" width="186" height="12" rx="6" fill="rgba(148,163,184,0.40)"/>
+    <rect x="504" y="662" width="138" height="22" rx="11" fill="rgba(56,189,248,0.14)" stroke="rgba(56,189,248,0.26)"/>
+  </g>
+
+  <!-- Floating chip -->
+  <g>
+    <rect x="210" y="330" width="240" height="150" rx="22" fill="rgba(2,6,23,0.55)" stroke="rgba(148,163,184,0.16)"/>
+    <rect x="238" y="368" width="120" height="12" rx="6" fill="rgba(226,232,240,0.86)"/>
+    <rect x="238" y="396" width="170" height="10" rx="5" fill="rgba(148,163,184,0.62)"/>
+    <rect x="238" y="424" width="92" height="18" rx="9" fill="rgba(16,185,129,0.18)" stroke="rgba(16,185,129,0.28)"/>
+  </g>
+
+  <!-- Small coin -->
+  <g>
+    <circle cx="946" cy="370" r="44" fill="rgba(16,185,129,0.14)" stroke="rgba(16,185,129,0.28)"/>
+    <path d="M946 345C966 345 982 357 982 370C982 383 966 395 946 395C926 395 910 383 910 370C910 357 926 345 946 345Z" fill="rgba(226,232,240,0.08)"/>
+    <path d="M946 356C957 356 966 362 966 370C966 378 957 384 946 384C935 384 926 378 926 370C926 362 935 356 946 356Z" fill="rgba(56,189,248,0.18)"/>
+  </g>
+</svg>
+

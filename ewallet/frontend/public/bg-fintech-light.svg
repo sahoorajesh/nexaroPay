@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F7F8FF"/>
+      <stop offset="1" stop-color="#F3F6FF"/>
+    </linearGradient>
+    <linearGradient id="sheen" x1="220" y1="80" x2="1200" y2="860" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2563EB" stop-opacity="0.14"/>
+      <stop offset="0.55" stop-color="#7C3AED" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#38BDF8" stop-opacity="0.10"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1440" height="900" fill="url(#bg)"/>
+  <path d="M-80 180C180 60 420 40 720 150C1040 270 1230 240 1520 110V360C1240 520 980 540 720 440C450 340 180 320 -80 430V180Z" fill="url(#sheen)"/>
+  <path d="M-80 520C160 420 420 400 720 510C1010 620 1240 600 1520 480V720C1240 850 980 870 720 770C430 650 160 640 -80 760V520Z" fill="url(#sheen)" opacity="0.85"/>
+
+  <g opacity="0.20">
+    <path d="M0 120H1440M0 240H1440M0 360H1440M0 480H1440M0 600H1440M0 720H1440M0 840H1440" stroke="rgba(15,23,42,0.08)"/>
+    <path d="M120 0V900M240 0V900M360 0V900M480 0V900M600 0V900M720 0V900M840 0V900M960 0V900M1080 0V900M1200 0V900M1320 0V900" stroke="rgba(15,23,42,0.05)"/>
+  </g>
+
+  <g stroke="rgba(15,23,42,0.06)" stroke-width="2">
+    <path d="M-40 98 C 160 18, 360 18, 560 98 C 760 178, 960 178, 1160 98 C 1360 18, 1560 18, 1760 98" />
+    <path d="M-40 158 C 160 78, 360 78, 560 158 C 760 238, 960 238, 1160 158 C 1360 78, 1560 78, 1760 158" />
+    <path d="M-40 218 C 160 138, 360 138, 560 218 C 760 298, 960 298, 1160 218 C 1360 138, 1560 138, 1760 218" />
+    <path d="M-40 278 C 160 198, 360 198, 560 278 C 760 358, 960 358, 1160 278 C 1360 198, 1560 198, 1760 278" />
+  </g>
+</svg>
+
