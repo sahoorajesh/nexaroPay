@@ -4,13 +4,14 @@ import com.wallet.dto.AddMoneyReq;
 import com.wallet.dto.AddMoneyResponse;
 import com.wallet.dto.WalletInfoDTO;
 import com.wallet.service.WalletService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-
+//import jakarta.servlet.http.HttpServletResponse;
 import java.util.concurrent.ExecutionException;
 
 @RestController
@@ -40,8 +41,16 @@ public class WalletController {
     }
 
     @GetMapping("process-payment/{pgTxnId}")
-    public ResponseEntity<String> processTransferViaPaymentGateway(@PathVariable String pgTxnId) {
-        return ResponseEntity.ok(walletService.processPgTxnId(pgTxnId));
+    public void processTransferViaPaymentGateway( @PathVariable String pgTxnId, HttpServletResponse response) throws java.io.IOException {
+
+        // Process payment first
+        walletService.processPgTxnId(pgTxnId);
+
+        // Redirect browser back to frontend
+        String frontendUrl =
+                "http://localhost:3000/add-money?pgTxnId=" + pgTxnId;
+
+        response.sendRedirect(frontendUrl);
     }
 
     @GetMapping("/check-balance/{userId}")

@@ -1,23 +1,20 @@
 // Centralized session helpers for the frontend.
-// We keep auth in sessionStorage to match the existing login flow.
+// We keep auth in localStorage to match the existing login flow.
 
 const KEY = "nx_auth";
 
 export function readAuth() {
   try {
-    const raw = sessionStorage.getItem(KEY);
-    if (!raw) return null;
-    return JSON.parse(raw);
+    return JSON.parse(localStorage.getItem(KEY) || "null");
   } catch {
     return null;
   }
 }
 
 export function writeAuth(auth) {
-  sessionStorage.setItem(KEY, JSON.stringify(auth));
+  localStorage.setItem(KEY, JSON.stringify(auth));
 }
 
 export function clearAuth() {
-  sessionStorage.removeItem(KEY);
+  localStorage.removeItem(KEY);
 }
-

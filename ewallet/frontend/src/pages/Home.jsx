@@ -11,7 +11,7 @@ import "./home.css";
 
 function readSession() {
   try {
-    const raw = sessionStorage.getItem("nx_auth");
+    const raw = localStorage.getItem("nx_auth");
     if (!raw) return null;
     return JSON.parse(raw);
   } catch {

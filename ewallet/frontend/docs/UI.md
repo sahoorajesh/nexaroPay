@@ -4,7 +4,7 @@ This document explains the React UI pages used to exercise the backend services,
 
 ## Auth And Redirects
 
-Auth is stored in `sessionStorage` key `nx_auth` as:
+Auth is stored in `localStorage` key `nx_auth` as:
 
 ```json
 { "userId": 123, "user": { "name": "...", "email": "...", "phone": "...", "kycNumber": "..." } }
