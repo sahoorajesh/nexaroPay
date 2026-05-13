@@ -3,6 +3,7 @@ import Shell from "../components/layout/Shell.jsx";
 import AppCtas from "../components/layout/AppCtas.jsx";
 import { registerMerchant } from "../api/merchantApi.js";
 import { useToast } from "../components/ui/ToastProvider.jsx";
+import { Icon } from "../components/ui/Icons.jsx";
 import "./appPages.css";
 
 export default function MerchantRegisterPage() {
@@ -10,13 +11,13 @@ export default function MerchantRegisterPage() {
 
   const [busy, setBusy] = React.useState(false);
   const [resId, setResId] = React.useState("");
-  const [form, setForm] = React.useState({
+  const [form, setForm] = React.useState(() => ({
     merchantKey: "demo-key",
     name: "Demo Merchant",
     email: "merchant@example.com",
     statusWebhook: "http://localhost:9090/pg-webhook/status",
-    redirectionUrl: "http://localhost:9090/merchant/redirect",
-  });
+    redirectionUrl: `${window.location.origin}/add-money?pgTxnId=`,
+  }));
 
   const valid =
     form.merchantKey.trim() &&
@@ -50,7 +51,11 @@ export default function MerchantRegisterPage() {
             </div>
             <div className="field">
               <div className="label">Name</div>
-              <input className="input" value={form.name} onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))} />
+              <input
+                className="input"
+                value={form.name}
+                onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
+              />
             </div>
             <div className="field">
               <div className="label">Email</div>
@@ -92,13 +97,24 @@ export default function MerchantRegisterPage() {
                   setResId(String(id));
                   toast.push({ type: "ok", title: "Merchant registered", message: `Merchant ID: ${String(id)}` });
                 } catch (e) {
-                  toast.push({ type: "error", title: "Registration failed", message: e?.message || "Request failed" });
+                  toast.push({
+                    type: "error",
+                    title: "Registration failed",
+                    message: e?.message || "We could not register the merchant. Please try again.",
+                  });
                 } finally {
                   setBusy(false);
                 }
               }}
             >
-              {busy ? "Working…" : "Register"}
+              {busy ? (
+                "Working..."
+              ) : (
+                <>
+                  <Icon name="check" />
+                  Register
+                </>
+              )}
             </button>
           </div>
         </div>
@@ -113,4 +129,3 @@ export default function MerchantRegisterPage() {
     </Shell>
   );
 }
-

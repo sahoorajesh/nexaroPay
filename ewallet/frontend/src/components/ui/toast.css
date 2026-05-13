@@ -56,13 +56,13 @@
   width: 40px;
   border: 0;
   background: transparent;
-  color: rgba(226, 232, 240, 0.76);
+  color: var(--toastMuted);
   cursor: pointer;
   font-size: 18px;
 }
 
 .toast__x:hover {
-  color: rgba(226, 232, 240, 0.96);
+  color: var(--toastText);
 }
 
 @keyframes toastIn {

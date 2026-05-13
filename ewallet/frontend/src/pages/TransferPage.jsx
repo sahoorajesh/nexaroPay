@@ -4,9 +4,18 @@ import AppCtas from "../components/layout/AppCtas.jsx";
 import { readAuth } from "../auth/session.js";
 import { getTxnStatus, transferMoney } from "../api/transactionApi.js";
 import { useToast } from "../components/ui/ToastProvider.jsx";
+import { Icon } from "../components/ui/Icons.jsx";
+import TransactionModal from "../components/ui/TransactionModal.jsx";
 import "./appPages.css";
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+function transferTitle(status) {
+  if (status === "SUCCESS") return "Transfer completed successfully";
+  if (status === "FAILED") return "Transfer could not be completed";
+  if (status === "PENDING") return "Transfer is still processing";
+  return "Transfer status updated";
+}
 
 export default function TransferPage() {
   const toast = useToast();
@@ -80,7 +89,11 @@ export default function TransferPage() {
         message: `Status: ${result.status}`,
       });
     } catch (e) {
-      toast.push({ type: "error", title: "Transfer failed", message: e?.message || "Request failed" });
+      toast.push({
+        type: "error",
+        title: "Transfer failed",
+        message: e?.message || "We could not complete the transfer. Please try again.",
+      });
     } finally {
       setBusy(false);
     }
@@ -129,7 +142,14 @@ export default function TransferPage() {
 
           <div className="row" style={{ marginTop: 14 }}>
             <button className="btn btn--primary" type="button" disabled={!valid || busy} onClick={onTransfer}>
-              {busy ? "Checking Status..." : "Send Money"}
+              {busy ? (
+                "Checking Status..."
+              ) : (
+                <>
+                  <Icon name="send" />
+                  Send Money
+                </>
+              )}
             </button>
           </div>
         </div>
@@ -140,7 +160,9 @@ export default function TransferPage() {
           </div>
           {transferResult ? (
             <div className="statusSummary">
-              <div className="statusBadge">{transferResult.status}</div>
+              <div className={`statusBadge statusBadge--${String(transferResult.status).toLowerCase()}`}>
+                {transferResult.status}
+              </div>
               <div>
                 <div className="statusSummary__id">{transferResult.txnId}</div>
                 <div className="appSub">
@@ -156,50 +178,21 @@ export default function TransferPage() {
         </div>
 
         {statusDialog ? (
-          <div className="modalShade" role="presentation" onClick={() => setStatusDialog(null)}>
-            <div className="statusModal" role="dialog" aria-modal="true" aria-label="Transfer status" onClick={(e) => e.stopPropagation()}>
-              <div className="statusModal__head">
-                <div>
-                  <div className="statusModal__title">Transfer {statusDialog.status}</div>
-                  <div className="appSub">{statusDialog.paymentTime.toLocaleString()}</div>
-                </div>
-                <button className="iconBtn btn btn--ghost" type="button" onClick={() => setStatusDialog(null)} aria-label="Close">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path
-                      d="M6 6l12 12M18 6 6 18"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeWidth="2"
-                    />
-                  </svg>
-                </button>
-              </div>
-              <div className="statusModal__grid">
-                <div>
-                  <span>Txn ID</span>
-                  <strong>{statusDialog.txnId}</strong>
-                </div>
-                <div>
-                  <span>Status</span>
-                  <strong>{statusDialog.status}</strong>
-                </div>
-                <div>
-                  <span>From User ID</span>
-                  <strong>{statusDialog.fromUserId}</strong>
-                </div>
-                <div>
-                  <span>To User ID</span>
-                  <strong>{statusDialog.toUserId}</strong>
-                </div>
-                <div>
-                  <span>Time of Payment</span>
-                  <strong>{statusDialog.paymentTime.toLocaleString()}</strong>
-                </div>
-              </div>
-              {statusDialog.reason ? <div className="statusModal__reason">{statusDialog.reason}</div> : null}
-            </div>
-          </div>
+          <TransactionModal
+            title={transferTitle(statusDialog.status)}
+            subtitle={statusDialog.paymentTime.toLocaleString()}
+            status={statusDialog.status}
+            fields={[
+              { label: "Txn ID", value: statusDialog.txnId },
+              { label: "From User ID", value: statusDialog.fromUserId },
+              { label: "To User ID", value: statusDialog.toUserId },
+              { label: "Amount", value: `INR ${Number(statusDialog.amount).toFixed(2)}` },
+              { label: "Time of Payment", value: statusDialog.paymentTime.toLocaleString() },
+            ]}
+            reason={statusDialog.reason}
+            onClose={() => setStatusDialog(null)}
+            ariaLabel="Transfer status"
+          />
         ) : null}
       </div>
     </Shell>

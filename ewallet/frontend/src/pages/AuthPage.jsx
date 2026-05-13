@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { createUser, login } from "../api/userApi.js";
 import { useToast } from "../components/ui/ToastProvider.jsx";
 import { readAuth, writeAuth } from "../auth/session.js";
+import { Icon } from "../components/ui/Icons.jsx";
 
 function isEmail(v) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(v || "").trim());
@@ -47,15 +48,22 @@ function Input({ label, id, value, onChange, placeholder, autoComplete, type = "
   );
 }
 
-function Button({ children, disabled, loading, variant = "primary", type = "button", onClick }) {
+function Button({ children, disabled, icon, loading, variant = "primary", type = "button", onClick }) {
   return (
     <button
       type={type}
       disabled={disabled || loading}
       onClick={onClick}
-      className={cn("apBtn", variant === "ghost" && "apBtn--ghost", variant === "google" && "apBtn--google")}
+      className={cn(
+        "btn",
+        variant === "primary" && "btn--primary",
+        variant === "ghost" && "btn--ghost",
+        variant === "google" && "btn--ghost",
+        "apBtn",
+      )}
     >
       {loading ? <span className="apSpinner" aria-hidden="true" /> : null}
+      {!loading && icon ? <Icon name={icon} /> : null}
       <span className="apBtn__txt">{children}</span>
     </button>
   );
@@ -262,7 +270,7 @@ export default function AuthPage({ defaultTab = "signin" }) {
                   error={siSubmitted ? signinErrors.kyc : ""}
                 />
 
-                <Button type="submit" loading={busy} disabled={!signinValid}>
+                <Button type="submit" icon="user" loading={busy} disabled={!signinValid}>
                   Sign In
                 </Button>
               </form>
@@ -308,7 +316,7 @@ export default function AuthPage({ defaultTab = "signin" }) {
                   error={suSubmitted ? signupErrors.kycNumber : ""}
                 />
 
-                <Button type="submit" loading={busy} disabled={!signupValid}>
+                <Button type="submit" icon="add" loading={busy} disabled={!signupValid}>
                   Sign Up
                 </Button>
               </form>
@@ -322,7 +330,10 @@ export default function AuthPage({ defaultTab = "signin" }) {
           min-height:100vh;
           display:grid;
           grid-template-columns: 1fr 1fr;
-          background: var(--bg);
+          background:
+            radial-gradient(900px 520px at 12% 0%, rgba(16,185,129,0.12), rgba(0,0,0,0)),
+            radial-gradient(780px 460px at 88% 12%, rgba(214,168,83,0.12), rgba(0,0,0,0)),
+            var(--bg);
           color: var(--text);
         }
         .apLeft{
@@ -332,7 +343,7 @@ export default function AuthPage({ defaultTab = "signin" }) {
           flex-direction:column;
           justify-content:space-between;
           overflow:hidden;
-          background: linear-gradient(135deg, #2563eb, #7c3aed);
+          background: linear-gradient(135deg, #10233d, #16523f 58%, #a77b2d);
         }
         .apLeft::after{
           content:"";
@@ -422,7 +433,8 @@ export default function AuthPage({ defaultTab = "signin" }) {
           background: var(--surface);
         }
         .apBack:hover{ color: var(--text); }
-        .apBack__arr{ font-size: 16px; line-height: 0; }
+        .apBack__arr{ display: none; }
+        .apBack::before{ content: "<-"; font-size: 13px; line-height: 1; }
         .apCard{
           width: min(460px, 100%);
           border-radius: 14px;
@@ -556,36 +568,8 @@ export default function AuthPage({ defaultTab = "signin" }) {
 
         .apBtn{
           height: 46px;
-          border-radius: 12px;
-          border: 1px solid rgba(37,99,235,0.22);
-          background: linear-gradient(135deg, rgba(37,99,235,0.92), rgba(124,58,237,0.92));
-          color: rgba(255,255,255,0.96);
+          width: 100%;
           font-weight: 900;
-          letter-spacing: 0;
-          cursor: pointer;
-          display:inline-flex;
-          align-items:center;
-          justify-content:center;
-          gap: 10px;
-          box-shadow: 0 14px 34px rgba(37,99,235,0.20);
-        }
-        .apBtn:disabled{ opacity: 0.55; cursor:not-allowed; }
-        .apBtn--ghost{
-          background: transparent;
-          color: var(--text);
-          border: 1px solid var(--border);
-          box-shadow: none;
-        }
-        .apBtn--google{
-          background: rgba(255,255,255,0.86);
-          color: var(--text);
-          border: 1px solid rgba(15,23,42,0.10);
-          box-shadow: none;
-        }
-        html[data-theme="dark"] .apBtn--google{
-          background: rgba(2,6,23,0.36);
-          border: 1px solid rgba(148,163,184,0.14);
-          color: var(--text);
         }
 
         .apSpinner{

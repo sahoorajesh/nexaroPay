@@ -1,21 +1,84 @@
 import React from "react";
+import { useSearchParams } from "react-router-dom";
 import Shell from "../components/layout/Shell.jsx";
 import AppCtas from "../components/layout/AppCtas.jsx";
 import { readAuth } from "../auth/session.js";
-import { addMoney } from "../api/walletApi.js";
+import { addMoney, processPayment } from "../api/walletApi.js";
 import { useToast } from "../components/ui/ToastProvider.jsx";
+import { Icon } from "../components/ui/Icons.jsx";
+import TransactionModal from "../components/ui/TransactionModal.jsx";
 import "./appPages.css";
 
 export default function AddMoneyPage() {
   const toast = useToast();
+  const [params, setParams] = useSearchParams();
   const auth = readAuth();
   const userId = auth?.userId;
 
   const [amount, setAmount] = React.useState("100");
   const [busy, setBusy] = React.useState(false);
+  const [completionDialog, setCompletionDialog] = React.useState(null);
+  const processedPaymentRef = React.useRef("");
 
   const amountNum = Number(amount);
   const amountValid = Number.isFinite(amountNum) && amountNum > 0;
+
+  React.useEffect(() => {
+    const pgTxnId = params.get("pgTxnId") || params.get("txnId");
+    if (!pgTxnId || processedPaymentRef.current === pgTxnId) return;
+
+    processedPaymentRef.current = pgTxnId;
+    const pendingKey = `nx_add_money_pending_${pgTxnId}`;
+    let pending = null;
+    try {
+      pending = JSON.parse(sessionStorage.getItem(pendingKey) || "null");
+    } catch {
+      pending = null;
+    }
+
+    let cancelled = false;
+    async function completePayment() {
+      setBusy(true);
+      try {
+        const result = await processPayment(pgTxnId);
+        if (cancelled) return;
+
+        const success = String(result || "").toLowerCase().includes("success");
+        const dialog = {
+          txnId: pgTxnId,
+          amount: pending?.amount,
+          status: success ? "SUCCESS" : "FAILED",
+          reason: success ? "" : "The payment gateway could not complete this add-money request.",
+          paymentTime: new Date(),
+        };
+        setCompletionDialog(dialog);
+        toast.push({
+          type: success ? "ok" : "error",
+          title: success ? "Money added to wallet successfully" : "Money could not be added",
+          message: success
+            ? "Your wallet balance has been updated."
+            : "Please try again or check the transaction status.",
+        });
+        sessionStorage.removeItem(pendingKey);
+        setParams({}, { replace: true });
+      } catch (e) {
+        if (!cancelled) {
+          toast.push({
+            type: "error",
+            title: "Payment confirmation failed",
+            message: e?.message || "We could not confirm the payment. Please try again.",
+          });
+        }
+      } finally {
+        if (!cancelled) setBusy(false);
+      }
+    }
+
+    completePayment();
+    return () => {
+      cancelled = true;
+    };
+  }, [params, setParams, toast]);
 
   return (
     <Shell cta={<AppCtas />} footer={false}>
@@ -29,7 +92,7 @@ export default function AddMoneyPage() {
 
         <div className="panel addMoneyPanel">
           <div className="panelHead">
-            <div className="panelTitle">Create Add-Money Transaction</div>
+            <div className="panelTitle">Top Up Your Wallet</div>
           </div>
 
           <div className="moneyForm">
@@ -57,6 +120,12 @@ export default function AddMoneyPage() {
                 try {
                   const data = await addMoney({ userId, amount: amountNum });
                   if (data?.url) {
+                    if (data?.txnId) {
+                      sessionStorage.setItem(
+                        `nx_add_money_pending_${data.txnId}`,
+                        JSON.stringify({ amount: amountNum, userId, startedAt: new Date().toISOString() }),
+                      );
+                    }
                     if (paymentTab) {
                       paymentTab.location.href = data.url;
                     } else {
@@ -69,16 +138,50 @@ export default function AddMoneyPage() {
                   }
                 } catch (e) {
                   if (paymentTab) paymentTab.close();
-                  toast.push({ type: "error", title: "Add money failed", message: e?.message || "Request failed" });
+                  toast.push({
+                    type: "error",
+                    title: "Add money failed",
+                    message: e?.message || "We could not start the payment. Please try again.",
+                  });
                 } finally {
                   setBusy(false);
                 }
               }}
             >
-              {busy ? "Working..." : "Initiate Payment"}
+              {busy ? (
+                "Working..."
+              ) : (
+                <>
+                  <Icon name="credit-card" />
+                  Continue to Payment
+                </>
+              )}
             </button>
           </div>
         </div>
+
+        {completionDialog ? (
+          <TransactionModal
+            title={
+              completionDialog.status === "SUCCESS"
+                ? "Money added to wallet successfully"
+                : "Money could not be added"
+            }
+            subtitle={completionDialog.paymentTime.toLocaleString()}
+            status={completionDialog.status}
+            fields={[
+              { label: "Payment Txn ID", value: completionDialog.txnId },
+              {
+                label: "Amount",
+                value: completionDialog.amount != null ? `INR ${Number(completionDialog.amount).toFixed(2)}` : "-",
+              },
+              { label: "Wallet User ID", value: userId },
+            ]}
+            reason={completionDialog.reason}
+            onClose={() => setCompletionDialog(null)}
+            ariaLabel="Add money transaction status"
+          />
+        ) : null}
       </div>
     </Shell>
   );

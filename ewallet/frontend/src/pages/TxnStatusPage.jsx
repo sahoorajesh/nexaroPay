@@ -4,6 +4,7 @@ import Shell from "../components/layout/Shell.jsx";
 import AppCtas from "../components/layout/AppCtas.jsx";
 import { getTxnStatus } from "../api/transactionApi.js";
 import { useToast } from "../components/ui/ToastProvider.jsx";
+import { Icon } from "../components/ui/Icons.jsx";
 import "./appPages.css";
 
 export default function TxnStatusPage() {
@@ -28,7 +29,11 @@ export default function TxnStatusPage() {
       setStatus(s);
       toast.push({ type: "ok", title: "Status loaded", message: s?.status ? `Status: ${s.status}` : "Loaded." });
     } catch (e) {
-      toast.push({ type: "error", title: "Status failed", message: e?.message || "Request failed" });
+      toast.push({
+        type: "error",
+        title: "Status failed",
+        message: e?.message || "We could not load the transaction status. Please try again.",
+      });
     } finally {
       setBusy(false);
     }
@@ -63,7 +68,14 @@ export default function TxnStatusPage() {
                   load(v);
                 }}
               >
-                {busy ? "Loading..." : "Fetch"}
+                {busy ? (
+                  "Loading..."
+                ) : (
+                  <>
+                    <Icon name="search" />
+                    Fetch
+                  </>
+                )}
               </button>
             </div>
           </div>

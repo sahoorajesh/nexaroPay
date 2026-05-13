@@ -149,7 +149,7 @@ html[data-theme="dark"] .input {
 .addMoneyPanel,
 .transferPanel,
 .statusCardPanel {
-  border-color: rgba(177, 138, 69, 0.20);
+  border-color: rgba(16, 185, 129, 0.18);
 }
 
 .lookupGrid {
@@ -362,6 +362,25 @@ html[data-theme="dark"] .profileCard {
   font-weight: 950;
 }
 
+.statusBadge--success {
+  border-color: rgba(5, 150, 105, 0.28);
+  background: var(--successSoft);
+  color: var(--success);
+}
+
+.statusBadge--failed {
+  border-color: rgba(220, 38, 38, 0.28);
+  background: var(--dangerSoft);
+  color: var(--danger);
+}
+
+.statusBadge--pending,
+.statusBadge--unknown {
+  border-color: rgba(183, 121, 31, 0.28);
+  background: var(--warningSoft);
+  color: var(--warning);
+}
+
 .statusSummary__id {
   font-weight: 900;
   overflow-wrap: anywhere;
@@ -392,6 +411,19 @@ html[data-theme="dark"] .profileCard {
   padding: 18px;
 }
 
+.statusModal--success {
+  border-color: rgba(5, 150, 105, 0.34);
+}
+
+.statusModal--failed {
+  border-color: rgba(220, 38, 38, 0.34);
+}
+
+.statusModal--pending,
+.statusModal--unknown {
+  border-color: rgba(183, 121, 31, 0.34);
+}
+
 .statusModal__head {
   display: flex;
   justify-content: space-between;
@@ -400,9 +432,72 @@ html[data-theme="dark"] .profileCard {
   margin-bottom: 14px;
 }
 
+.statusModal__titleWrap {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: center;
+}
+
+.statusModal__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: var(--warningSoft);
+  color: var(--warning);
+}
+
+.statusModal__icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.statusModal--success .statusModal__icon {
+  background: var(--successSoft);
+  color: var(--success);
+}
+
+.statusModal--failed .statusModal__icon {
+  background: var(--dangerSoft);
+  color: var(--danger);
+}
+
 .statusModal__title {
   font-size: 20px;
   font-weight: 950;
+}
+
+.statusModal__summary {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: rgba(148, 163, 184, 0.06);
+}
+
+.statusModal__summary span {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.statusModal__summary strong {
+  font-size: 14px;
+}
+
+.statusModal--success .statusModal__summary {
+  background: var(--successSoft);
+  border-color: rgba(5, 150, 105, 0.22);
+}
+
+.statusModal--failed .statusModal__summary {
+  background: var(--dangerSoft);
+  border-color: rgba(220, 38, 38, 0.22);
 }
 
 .statusModal__grid {

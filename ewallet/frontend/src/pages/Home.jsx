@@ -6,6 +6,7 @@ import Carousel from "../components/ui/Carousel.jsx";
 import artPay from "../assets/carousel-pay.svg";
 import artSplit from "../assets/carousel-split.svg";
 import artStatus from "../assets/carousel-status.svg";
+import { Icon } from "../components/ui/Icons.jsx";
 import "./home.css";
 
 function readSession() {
@@ -28,15 +29,18 @@ export default function Home() {
           {auth?.userId ? (
             <>
               <Link className="btn btn--ghost" to="/welcome">
+                <Icon name="home" />
                 Welcome{name ? ` ${name}` : ""}
               </Link>
             </>
           ) : (
             <>
               <Link className="btn btn--ghost" to="/login">
+                <Icon name="user" />
                 Sign in
               </Link>
               <Link className="btn btn--primary" to="/signup">
+                <Icon name="add" />
                 Sign up
               </Link>
             </>
@@ -63,9 +67,11 @@ export default function Home() {
           </p>
           <div className="hero__actions">
             <Link className="btn btn--primary" to="/signup">
+              <Icon name="add" />
               Get Started Free
             </Link>
             <Link className="btn btn--ghost" to="/login">
+              <Icon name="wallet" />
               Open your Wallet
             </Link>
           </div>
@@ -240,6 +246,7 @@ export default function Home() {
             <div className="ctaBand__sub">Sign up now and use the app as you build the rest of the experience.</div>
           </div>
           <Link className="btn btn--primary" to="/signup">
+            <Icon name="add" />
             Get Started Free
           </Link>
         </div>

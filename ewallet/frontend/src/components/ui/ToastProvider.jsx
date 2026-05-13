@@ -44,7 +44,7 @@ export function ToastProvider({ children }) {
               <div className="toast__msg">{t.message}</div>
             </div>
             <button className="toast__x" type="button" onClick={() => dismiss(t.id)} aria-label="Dismiss">
-              ×
+              &times;
             </button>
           </div>
         ))}
