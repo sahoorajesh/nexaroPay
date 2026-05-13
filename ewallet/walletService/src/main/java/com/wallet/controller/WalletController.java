@@ -35,7 +35,7 @@ public class WalletController {
     public ResponseEntity<AddMoneyResponse> addMoney(@RequestBody AddMoneyReq addMoneyReq) throws ExecutionException, InterruptedException {
 
         addMoneyReq.setMerchantId(1L);
-        AddMoneyResponse addMoneyResponse = restTemplate.postForObject("http.localhost:9090/pg-service/init-payment",addMoneyReq, AddMoneyResponse.class);
+        AddMoneyResponse addMoneyResponse = restTemplate.postForObject("http://localhost:9090/pg-service/init-payment", addMoneyReq, AddMoneyResponse.class);
         return ResponseEntity.ok(addMoneyResponse);
     }
 
