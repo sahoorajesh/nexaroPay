@@ -14,10 +14,19 @@
   flex-wrap: wrap;
 }
 
+.appTitleRow--stack {
+  align-items: flex-start;
+}
+
 .appTitle {
   font-size: 18px;
   font-weight: 900;
   letter-spacing: 0;
+}
+
+.appTitle--hero {
+  font-size: 26px;
+  line-height: 1.16;
 }
 
 .appSub {
@@ -79,6 +88,12 @@
   color: var(--text);
 }
 
+.input--large {
+  height: 48px;
+  font-size: 18px;
+  font-weight: 850;
+}
+
 html[data-theme="dark"] .input {
   background: rgba(2, 6, 23, 0.38);
   border: 1px solid rgba(148, 163, 184, 0.14);
@@ -125,5 +140,310 @@ html[data-theme="dark"] .input {
   border: 1px solid var(--border);
   background: rgba(148, 163, 184, 0.06);
   overflow: auto;
+}
+
+.moneyForm {
+  max-width: 420px;
+}
+
+.addMoneyPanel,
+.transferPanel,
+.statusCardPanel {
+  border-color: rgba(177, 138, 69, 0.20);
+}
+
+.lookupGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 12px;
+}
+
+.lookupAction {
+  display: flex;
+  align-items: end;
+}
+
+.walletCardWrap {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0 2px;
+}
+
+.walletVisualCard {
+  width: min(560px, 100%);
+  min-height: 310px;
+  border-radius: 18px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #fff8e7;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0) 34%),
+    linear-gradient(145deg, #101827, #1d2f50 54%, #9b732d);
+  border: 1px solid rgba(214, 168, 83, 0.42);
+  box-shadow: 0 28px 70px rgba(15, 23, 42, 0.24);
+  position: relative;
+  overflow: hidden;
+}
+
+.walletVisualCard::after {
+  content: "";
+  position: absolute;
+  inset: auto -20% -42% 42%;
+  height: 220px;
+  border-radius: 999px 999px 0 0;
+  background: rgba(255, 255, 255, 0.08);
+  transform: rotate(-10deg);
+}
+
+.walletVisualCard__top,
+.walletVisualCard__meta,
+.walletVisualCard__brand,
+.walletVisualCard__label,
+.walletVisualCard__balance {
+  position: relative;
+  z-index: 1;
+}
+
+.walletVisualCard__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.walletVisualCard__logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.24);
+}
+
+.walletVisualCard__chip {
+  width: 48px;
+  height: 34px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #d9b76e, #fff0b8 52%, #a77b2d);
+  box-shadow: inset 0 0 0 1px rgba(75, 53, 16, 0.18);
+}
+
+.walletVisualCard__label {
+  font-size: 13px;
+  color: rgba(255, 248, 231, 0.76);
+  margin-bottom: 6px;
+}
+
+.walletVisualCard__balance {
+  font-size: clamp(28px, 5vw, 46px);
+  line-height: 1;
+  font-weight: 950;
+}
+
+.walletVisualCard__meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.walletVisualCard__meta div {
+  display: grid;
+  gap: 4px;
+}
+
+.walletVisualCard__meta span {
+  font-size: 11px;
+  color: rgba(255, 248, 231, 0.68);
+}
+
+.walletVisualCard__meta strong {
+  font-size: 14px;
+}
+
+.walletVisualCard__brand {
+  align-self: flex-end;
+  font-size: 17px;
+  font-weight: 950;
+}
+
+.profileCard {
+  border: 1px solid rgba(177, 138, 69, 0.22);
+  border-radius: 16px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(248, 250, 252, 0.80)),
+    var(--surface2);
+  box-shadow: var(--shadow);
+  padding: 18px;
+  display: grid;
+  gap: 18px;
+}
+
+html[data-theme="dark"] .profileCard {
+  background:
+    linear-gradient(135deg, rgba(15, 23, 42, 0.72), rgba(2, 6, 23, 0.48)),
+    var(--surface2);
+}
+
+.profileCard__hero {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.profileAvatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  color: #fff8e7;
+  font-weight: 950;
+  background: linear-gradient(145deg, #14213d, #a77b2d);
+  box-shadow: 0 16px 30px rgba(20, 33, 61, 0.18);
+}
+
+.profileName {
+  font-size: 24px;
+  line-height: 1.2;
+  font-weight: 950;
+}
+
+.profileEmail {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 3px;
+}
+
+.profileDetailGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.profileDetail {
+  min-height: 88px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 13px;
+  display: grid;
+  align-content: space-between;
+  background: rgba(148, 163, 184, 0.06);
+}
+
+.profileDetail span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.profileDetail strong {
+  font-size: 15px;
+  overflow-wrap: anywhere;
+}
+
+.statusSummary {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: center;
+}
+
+.statusBadge {
+  min-width: 92px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid rgba(177, 138, 69, 0.26);
+  background: rgba(177, 138, 69, 0.10);
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.statusSummary__id {
+  font-weight: 900;
+  overflow-wrap: anywhere;
+}
+
+.statusSummary__reason {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.modalShade {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgba(2, 6, 23, 0.48);
+  display: grid;
+  place-items: center;
+  padding: 18px;
+}
+
+.statusModal {
+  width: min(560px, 100%);
+  border-radius: 16px;
+  border: 1px solid rgba(214, 168, 83, 0.28);
+  background: var(--surface2);
+  box-shadow: var(--shadowStrong);
+  padding: 18px;
+}
+
+.statusModal__head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+
+.statusModal__title {
+  font-size: 20px;
+  font-weight: 950;
+}
+
+.statusModal__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.statusModal__grid div,
+.statusModal__reason {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px;
+  background: rgba(148, 163, 184, 0.06);
+}
+
+.statusModal__grid span {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.statusModal__grid strong {
+  overflow-wrap: anywhere;
+}
+
+.statusModal__reason {
+  margin-top: 10px;
+  color: var(--muted);
+}
+
+@media (max-width: 820px) {
+  .lookupGrid,
+  .profileDetailGrid,
+  .statusModal__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .walletVisualCard {
+    min-height: 280px;
+  }
 }
 

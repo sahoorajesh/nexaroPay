@@ -47,12 +47,12 @@ export default function TxnStatusPage() {
           <div className="panelHead">
             <div className="panelTitle">Lookup</div>
           </div>
-          <div className="grid2">
+          <div className="lookupGrid">
             <div className="field">
               <div className="label">Txn ID</div>
               <input className="input" value={txnId} onChange={(e) => setTxnId(e.target.value)} placeholder="e.g. TXN123" />
             </div>
-            <div className="row" style={{ alignItems: "end" }}>
+            <div className="lookupAction">
               <button
                 className="btn btn--primary"
                 type="button"
@@ -63,7 +63,7 @@ export default function TxnStatusPage() {
                   load(v);
                 }}
               >
-                {busy ? "Loading…" : "Fetch"}
+                {busy ? "Loading..." : "Fetch"}
               </button>
             </div>
           </div>

@@ -46,12 +46,21 @@ export default function ProfilePage() {
     load();
   }, [load]);
 
+  const displayName = user?.name || auth?.user?.name || "NexaroPay User";
+  const initials = displayName
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase())
+    .join("");
+
   return (
     <Shell cta={<AppCtas />} footer={false}>
       <div className="appPage">
         <div className="appTitleRow">
           <div>
             <div className="appTitle">Profile</div>
+            <div className="appSub">Your account identity, contact details, and verification number.</div>
           </div>
           <button className="btn btn--ghost" type="button" onClick={load} disabled={busy}>
             <RefreshIcon />
@@ -59,39 +68,30 @@ export default function ProfilePage() {
           </button>
         </div>
 
-        <div className="panel">
-          <div className="panelHead">
-            <div className="panelTitle">User</div>
+        <div className="profileCard">
+          <div className="profileCard__hero">
+            <div className="profileAvatar">{busy ? "..." : initials || "NP"}</div>
+            <div>
+              <div className="profileName">{busy ? "Loading profile..." : displayName}</div>
+              <div className="profileEmail">{user?.email || auth?.user?.email || "-"}</div>
+            </div>
           </div>
-          {busy ? (
-            <div className="appSub">Loading profile…</div>
-          ) : (
-            <>
-              <div className="kv">
-                <div className="k">User ID</div>
-                <div className="v">{String(userId)}</div>
-              </div>
-              <div className="kv">
-                <div className="k">Name</div>
-                <div className="v">{user?.name || "-"}</div>
-              </div>
-              <div className="kv">
-                <div className="k">Email</div>
-                <div className="v">{user?.email || "-"}</div>
-              </div>
-              <div className="kv">
-                <div className="k">Phone</div>
-                <div className="v">{user?.phone || "-"}</div>
-              </div>
-              <div className="kv">
-                <div className="k">KYC</div>
-                <div className="v">{user?.kycNumber || "-"}</div>
-              </div>
-            </>
-          )}
+          <div className="profileDetailGrid">
+            <div className="profileDetail">
+              <span>User ID</span>
+              <strong>{String(userId || "-")}</strong>
+            </div>
+            <div className="profileDetail">
+              <span>Phone</span>
+              <strong>{user?.phone || "-"}</strong>
+            </div>
+            <div className="profileDetail profileDetail--wide">
+              <span>KYC Number</span>
+              <strong>{user?.kycNumber || "-"}</strong>
+            </div>
+          </div>
         </div>
       </div>
     </Shell>
   );
 }
-

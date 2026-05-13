@@ -6,7 +6,11 @@ This folder is intentionally *not* a Maven module. It's a separate React app to 
 
 Prerequisite: Node.js `>= 18` (your current error `Unexpected token '??='` happens on older Node versions like `v14.x`).
 
-1. Start the backend user-service on port `8091`.
+1. Start the backend services you want to exercise:
+   - user-service: `8091`
+   - wallet-service: `8092`
+   - transaction-service: `8094`
+   - payment-gateway-service: `9090`
 2. From this folder:
 
 ```bash
@@ -19,4 +23,4 @@ Open `http://localhost:3000`.
 ### API wiring
 
 - Signup calls `POST /user-service/user`
-- In dev, the frontend calls `/api/user-service/user` and Vite proxies `/api` to `http://localhost:8091` (see `vite.config.js`).
+- In dev, the frontend calls `/api/<service-prefix>/*` and Vite routes each service prefix to the matching local backend (see `vite.config.js`).

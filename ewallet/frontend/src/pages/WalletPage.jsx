@@ -33,8 +33,6 @@ export default function WalletPage() {
     if (!userId) return;
     setLoading(true);
     try {
-      // wallet-details and check-balance currently return the same WalletInfoDTO,
-      // but we keep both helpers since the backend exposes both endpoints.
       const w = await getWalletDetails(userId);
       setWallet(w);
     } catch (e) {
@@ -56,6 +54,7 @@ export default function WalletPage() {
         <div className="appTitleRow">
           <div>
             <div className="appTitle">Wallet</div>
+            <div className="appSub">A polished view of your NexaroPay wallet and balance.</div>
           </div>
           <div className="row">
             <button className="btn btn--ghost" type="button" onClick={load} disabled={loading}>
@@ -81,32 +80,32 @@ export default function WalletPage() {
           </div>
         </div>
 
-        <div className="panel">
-          <div className="panelHead">
-            <div className="panelTitle">Overview</div>
+        <div className="walletCardWrap">
+          <div className="walletVisualCard">
+            <div className="walletVisualCard__top">
+              <img className="walletVisualCard__logo" src="/favicon.png" alt="" />
+              <div className="walletVisualCard__chip" aria-hidden="true" />
+            </div>
+            <div>
+              <div className="walletVisualCard__label">Available Balance</div>
+              <div className="walletVisualCard__balance">
+                {loading ? "Loading..." : balance == null ? "INR -" : `INR ${Number(balance).toFixed(2)}`}
+              </div>
+            </div>
+            <div className="walletVisualCard__meta">
+              <div>
+                <span>User ID</span>
+                <strong>{String(wallet?.userId ?? userId ?? "-")}</strong>
+              </div>
+              <div>
+                <span>Wallet ID</span>
+                <strong>{wallet?.walletId != null ? String(wallet.walletId) : "-"}</strong>
+              </div>
+            </div>
+            <div className="walletVisualCard__brand">nexaroPay</div>
           </div>
-
-          {loading ? (
-            <div className="appSub">Loading wallet…</div>
-          ) : (
-            <>
-              <div className="kv">
-                <div className="k">User ID</div>
-                <div className="v">{String(wallet?.userId ?? userId)}</div>
-              </div>
-              <div className="kv">
-                <div className="k">Wallet ID</div>
-                <div className="v">{wallet?.walletId != null ? String(wallet.walletId) : "-"}</div>
-              </div>
-              <div className="kv">
-                <div className="k">Balance</div>
-                <div className="v">{balance == null ? "-" : `₹${Number(balance).toFixed(2)}`}</div>
-              </div>
-            </>
-          )}
         </div>
       </div>
     </Shell>
   );
 }
-
