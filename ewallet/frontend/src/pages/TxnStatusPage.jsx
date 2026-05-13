@@ -40,7 +40,6 @@ export default function TxnStatusPage() {
         <div className="appTitleRow">
           <div>
             <div className="appTitle">Transaction Status</div>
-            <div className="appSub">Uses `GET /transaction-service/status/{`txnId`}`.</div>
           </div>
         </div>
 

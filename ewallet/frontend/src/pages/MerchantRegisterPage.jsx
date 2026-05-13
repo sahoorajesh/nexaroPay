@@ -31,7 +31,6 @@ export default function MerchantRegisterPage() {
         <div className="appTitleRow">
           <div>
             <div className="appTitle">Merchant Registration</div>
-            <div className="appSub">Uses `POST /merchant-service/register-merchant`.</div>
           </div>
         </div>
 

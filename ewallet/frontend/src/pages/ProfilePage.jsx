@@ -6,6 +6,21 @@ import { getUserDetails } from "../api/userApi.js";
 import { useToast } from "../components/ui/ToastProvider.jsx";
 import "./appPages.css";
 
+function RefreshIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        d="M20 12a8 8 0 0 1-13.66 5.66M4 12A8 8 0 0 1 17.66 6.34M18 2v5h-5M6 22v-5h5"
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+}
+
 export default function ProfilePage() {
   const toast = useToast();
   const auth = readAuth();
@@ -37,9 +52,9 @@ export default function ProfilePage() {
         <div className="appTitleRow">
           <div>
             <div className="appTitle">Profile</div>
-            <div className="appSub">Uses `GET /user-service/user-details/{`userId`}`.</div>
           </div>
           <button className="btn btn--ghost" type="button" onClick={load} disabled={busy}>
+            <RefreshIcon />
             Refresh
           </button>
         </div>

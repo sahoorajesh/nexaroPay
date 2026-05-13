@@ -13,7 +13,7 @@ function cn(...xs) {
 }
 
 function Input({ label, id, value, onChange, placeholder, autoComplete, type = "text", error, isPassword }) {
-    const [show, setShow] = React.useState(false);
+  const [show, setShow] = React.useState(false);
 
   return (
     <div className="apField">
@@ -23,16 +23,22 @@ function Input({ label, id, value, onChange, placeholder, autoComplete, type = "
       <div className="inputWrap">
           <input
             id={id}
-            type={isPassword && !show ? "password" : "text"}
-            className={cn("apInput", error && "apInput--err")}
+            type={isPassword && !show ? "password" : type}
+            className={cn("apInput", isPassword && "apInput--withAction", error && "apInput--err")}
             value={value}
             onChange={onChange}
             placeholder={placeholder}
             autoComplete={autoComplete}
           />
           {isPassword && (
-            <button type="button" onClick={() => setShow(!show)}>
-              👁
+            <button
+              className="apEyeBtn"
+              type="button"
+              onClick={() => setShow(!show)}
+              aria-label={show ? "Hide KYC number" : "Show KYC number"}
+              title={show ? "Hide KYC number" : "Show KYC number"}
+            >
+              <span className="apEyeGlyph" aria-hidden="true" />
             </button>
           )}
       </div>
@@ -479,7 +485,13 @@ export default function AuthPage({ defaultTab = "signin" }) {
 
         .apField{ display:grid; gap:6px; }
         .apLabel{ font-size: 12px; color: var(--muted); }
+        .inputWrap{
+          position: relative;
+          display: flex;
+          align-items: center;
+        }
         .apInput{
+          width: 100%;
           height: 44px;
           border-radius: 12px;
           border: 1px solid rgba(15,23,42,0.12);
@@ -498,7 +510,48 @@ export default function AuthPage({ defaultTab = "signin" }) {
           border-color: rgba(37,99,235,0.45);
           box-shadow: 0 0 0 4px rgba(37,99,235,0.14);
         }
+        .apInput--withAction{ padding-right: 46px; }
         .apInput--err{ border-color: rgba(239,68,68,0.40); }
+        .apEyeBtn{
+          position: absolute;
+          right: 6px;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 32px;
+          height: 32px;
+          border-radius: 8px;
+          border: 1px solid transparent;
+          background: transparent;
+          color: var(--muted);
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+        }
+        .apEyeBtn:hover{
+          color: var(--text);
+          background: var(--btnBg);
+          border-color: var(--btnBorder);
+        }
+        .apEyeGlyph{
+          position: relative;
+          width: 18px;
+          height: 12px;
+          border: 2px solid currentColor;
+          border-radius: 999px / 720px;
+          display: inline-block;
+        }
+        .apEyeGlyph::after{
+          content: "";
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          width: 5px;
+          height: 5px;
+          border-radius: 999px;
+          background: currentColor;
+          transform: translate(-50%, -50%);
+        }
         .apErr{ font-size: 12px; color: rgba(239,68,68,0.88); }
 
         .apBtn{

@@ -33,7 +33,6 @@ export default function TransferPage() {
         <div className="appTitleRow">
           <div>
             <div className="appTitle">Transfer</div>
-            <div className="appSub">Uses `POST /transaction-service/transfer`.</div>
           </div>
         </div>
 

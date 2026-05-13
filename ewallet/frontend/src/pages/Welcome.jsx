@@ -42,7 +42,9 @@ export default function Welcome() {
           </div>
           <div className="emptyState">
             <p>No transactions yet</p>
-            <button className="btn btn--primary">Add money to get started</button>
+            <Link className="btn btn--primary" to="/add-money">
+              Add money to get started
+            </Link>
           </div>
           <div className="welcomeGrid">
             <div className="infoRow">

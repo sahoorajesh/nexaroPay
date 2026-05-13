@@ -25,7 +25,6 @@ export default function AddMoneyPage() {
         <div className="appTitleRow">
           <div>
             <div className="appTitle">Add Money</div>
-            <div className="appSub">Uses `POST /wallet-service/add-money` and opens the returned payment URL.</div>
           </div>
         </div>
 
@@ -130,8 +129,7 @@ export default function AddMoneyPage() {
             <div className="panelTitle">Process Payment (Optional)</div>
           </div>
           <div className="appSub" style={{ marginBottom: 10 }}>
-            Uses `GET /wallet-service/process-payment/{`pgTxnId`}`. If your payment gateway flow returns a `pgTxnId`,
-            paste it here to apply the balance update.
+            If your payment gateway flow returns a pgTxnId, paste it here to apply the balance update.
           </div>
           <div className="grid2">
             <div className="field">

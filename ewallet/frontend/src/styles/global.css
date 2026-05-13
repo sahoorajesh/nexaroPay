@@ -119,6 +119,12 @@ a {
   border-color: rgba(148, 163, 184, 0.14);
 }
 
+.btn svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+}
+
 .iconBtn {
   width: 36px;
   padding: 0;
