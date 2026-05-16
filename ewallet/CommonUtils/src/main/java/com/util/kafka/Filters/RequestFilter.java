@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -18,7 +19,8 @@ import java.nio.charset.StandardCharsets;
 @Component
 public class RequestFilter extends HttpFilter {
 
-    private static final String SECRET = "nexaroPaySuperSecureJwtSecretKey123456789";
+    @Value("${jwt.secret}")
+    private String SECRET;
 
     private final SecretKey key = Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
 
